@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        #resultContainer {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+        }
+
+        li strong {
+            font-weight: bold;
+        }
+
+        li em {
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div id="resultContainer">
+        <!-- Result will be displayed here -->
+    </div>
+
+    <script>
+        // Retrieve data from survey page
+        const params = new URLSearchParams(window.location.search);
+        const score = params.get('score');
+        const totalQuestions = params.get('totalQuestions');
+        const answers = JSON.parse(params.get('answers'));
+
+        // Display results
+        const resultContainer = document.getElementById('resultContainer');
+        resultContainer.innerHTML = `<h2>Survey Result</h2>
+                                     <p>Total Score: ${score}/${totalQuestions}</p>
+                                     <h3>Answers:</h3>
+                                     <ul>${displayAnswers()}</ul>`;
+
+        function displayAnswers() {
+            let html = '';
+            for (let i = 0; i < answers.length; i++) {
+                html += `<li><strong>Question ${i + 1}:</strong><br>
+                         <em>Correct Answer:</em> ${answers[i].correctAnswer}<br>
+                         <em>Your Answer:</em> ${answers[i].userAnswer}</li>`;
+            }
+            return html;
+        }
+    </script>
+</body>
+</html>
+
+
